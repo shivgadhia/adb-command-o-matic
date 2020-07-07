@@ -16,6 +16,8 @@
       <!-- Latest compiled JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+      <script src="https://cdn.jsdelivr.net/gh/webadb/webadb.js@master/webadb.js"></script>
+
       <title>ADB command creator</title>
 </head>
 
@@ -30,6 +32,10 @@
       <hr class="my-4">
 
       <samp id="result">adb shell am start -a android.intent.action.VIEW -d "..."</samp>
+
+      <div class="mt-5">
+          <button type="button" class="btn btn-primary" id="adbButton">Go on, push it</button>
+      </div>
     </div>
   </div>
 
@@ -45,6 +51,13 @@ const inputHandler = function(e) {
 
 source.addEventListener('input', inputHandler);
 source.addEventListener('propertychange', inputHandler);
+
+document.querySelector("#adbButton").onclick =   async () => {
+    let webusb = await Adb.open("WebUSB");
+    let adb = await webusb.connectAdb("host::");
+    let shell = await adb.shell("uname -a");
+    console.log(await shell.receive());
+  };
 
 </script>
 </body>
