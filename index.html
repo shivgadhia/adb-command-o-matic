@@ -52,8 +52,7 @@ const inputHandler = function(e) {
 source.addEventListener('input', inputHandler);
 source.addEventListener('propertychange', inputHandler);
 
-document.querySelector("#adbButton").onclick = async () => {
-    console.log("am start -a android.intent.action.VIEW -d \""+source.value+"\"");
+document.querySelector("#adbButton").onclick = async () => {  
     let webusb = await Adb.open("WebUSB");
     let adb = await webusb.connectAdb("host::");
     let shell = await adb.shell("am start -a android.intent.action.VIEW -d \""+source.value+"\"");
