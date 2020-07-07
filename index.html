@@ -55,7 +55,7 @@ source.addEventListener('propertychange', inputHandler);
 document.querySelector("#adbButton").onclick =   async () => {
     let webusb = await Adb.open("WebUSB");
     let adb = await webusb.connectAdb("host::");
-    let shell = await adb.shell("uname -a");
+    let shell = await adb.shell("am start -a android.intent.action.VIEW -d \""+e.target.value+"\"");
     console.log(await shell.receive());
   };
 
